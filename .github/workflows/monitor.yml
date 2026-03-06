@@ -28,22 +28,22 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            seen_apartments.json
+            seen_apartments_rv.json
             seen_east_hampton.json
           key: seen-apartments-${{ github.run_id }}
           restore-keys: seen-apartments-
 
       - name: Run Riverside monitor
-        run: python apartment_monitor.py
+        run: python riverside.py
 
       - name: Run East Hampton monitor
-        run: python east_hampton_monitor.py
+        run: python east-hampton.py
 
       - name: Save seen apartments state
         uses: actions/cache/save@v4
         if: always()
         with:
           path: |
-            seen_apartments.json
+            seen_apartments_rv.json
             seen_east_hampton.json
           key: seen-apartments-${{ github.run_id }}
