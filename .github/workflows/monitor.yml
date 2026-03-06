@@ -1,0 +1,49 @@
+name: Apartment Monitor
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check-apartments:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install selenium webdriver-manager beautifulsoup4
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Restore seen apartments state
+        uses: actions/cache@v4
+        with:
+          path: |
+            seen_apartments.json
+            seen_east_hampton.json
+          key: seen-apartments-${{ github.run_id }}
+          restore-keys: seen-apartments-
+
+      - name: Run Riverside monitor
+        run: python apartment_monitor.py
+
+      - name: Run East Hampton monitor
+        run: python east_hampton_monitor.py
+
+      - name: Save seen apartments state
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            seen_apartments.json
+            seen_east_hampton.json
+          key: seen-apartments-${{ github.run_id }}
