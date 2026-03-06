@@ -50,7 +50,7 @@ def matches_criteria(unit: str) -> bool:
     unit = unit.strip()
     if not unit.isdigit() or not unit.endswith("04") or len(unit) < 3:
         return False
-    return int(unit[:-2]) > 10
+    return int(unit[:-2]) > 14
 
 
 # ── Selenium ──────────────────────────────────
