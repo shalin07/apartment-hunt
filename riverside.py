@@ -46,9 +46,9 @@ def save_seen(seen: set):
 
 def matches_criteria(unit: str) -> bool:
     unit = unit.strip()
-    if not unit.isdigit() or not unit.endswith("04") or len(unit) < 3:
-        return False
-    return int(unit[:-2]) > 16
+    # if not unit.isdigit() or not unit.endswith("04") or len(unit) < 3:
+    #     return False
+    return int(unit[:-2]) > 5
 
 
 # ── Selenium scraper ──────────────────────────
