@@ -37,7 +37,7 @@ jobs:
         run: python riverside.py
 
       - name: Run East Hampton monitor
-        run: python east-hampton.py
+        run: python east_hampton.py
 
       - name: Save seen apartments state
         uses: actions/cache/save@v4
